@@ -1,0 +1,85 @@
+
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <nav class="navbar navbar-expand-lg">
+                    <a class="navbar-brand" href="#"><i class="fas fa-book mb-3" ></i></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                  
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#"><i class="fas fa-cart-plus">Cart</i></a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#"><i class="fas fa-heart">wishlist</i></a>
+                        </li>
+                        
+                        <li class="nav-item">
+                          <a class="nav-link" href="#"><i class="fas fa-boxes">Orders</i></a>
+                        </li>
+                        <li>
+                            <input type="text" class="form-control mx-3" style="width: 300px;" placeholder="search" [(ngModel)]="search">
+                          </li>
+                          <li class="pl-5">
+                            <img src="https://i.postimg.cc/7Lgq94SM/usericon.jpg" style="width: 60px; height: 50px;border-radius: 50%;display: inline;float: left;">
+                            <h6 style="color: white; font-weight: bold;display: inline;float: left;">Welcome{{username}}</h6>
+                            <button class="btn btn-success btn-small" (click)="onLogout()">Logout</button>
+                          </li>
+                      </ul>
+                      
+                    </div>
+                  </nav>
+            </div>
+            
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+        
+        <div class="col-sm-12">
+            <div class="container mt-5">
+                <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4">
+                    <div *ngFor="let i=index,let book of booksArray | search1 : search">
+                        <div class="col">
+                            <div class="card border-success mb-3" style="border-radius: 5%; width: 100%;height: 460px;">
+                                <img [src]=book.userImgLink class="card-img-top mx-auto" style="width: 100%; height: 140px;padding: 5px;border-radius: 5%;">
+                                <div class="card-body">
+                                    
+                                    <p class="card-text" style="font-size: 13px;"><b>Author:</b>{{book.author}}</p>
+                                    <p class="card-text" style="font-size: 12px;"><b>Publisher:</b>{{book.publisher}}</p>
+                                    
+                                    <p class="card-text" ><b>{{book.price | currency:"INR"}}</b></p>
+                                    <p><b>Rating:</b><ngb-rating [max]="5" style="color: rgb(231, 136, 27);" [(rate)]=book.rating [readonly]="true"></ngb-rating></p>
+                                    <div style="display: inline; float: left;padding: 5px;">
+                                        <button class="btn btn-success" ><i class="fas fa-money-check"></i>Buy</button>
+                                    </div>
+                                    <div style="display: inline; float: left;padding: 5px;">
+                                        <button class="btn btn-danger" ><i class="fas fa-cart-plus"></i>Cart</button>
+                                    </div>
+                                    
+                                    <div style="display: inline; float: left; padding: 5px;padding-left: 40px;">
+                                        <button class="btn btn-small"  style="background-color: blueviolet;color: white;"><i class="fas fa-heart"></i>wishlist</button>
+                                    </div>
+                                    
+                                    
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    </div>

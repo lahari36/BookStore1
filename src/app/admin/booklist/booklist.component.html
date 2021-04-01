@@ -1,0 +1,29 @@
+<div class="icon" style="display: inline;float: right;">
+    <img src="https://i.postimg.cc/7Lgq94SM/usericon.jpg" style="width: 60px; height: 60px;border-radius: 50%;display: inline;float: left;">
+    <h6 style="color: white; font-weight: bold;display: inline;float: left;">Welcome Admin</h6><br>
+    <button class="btn btn-success" (click)="onLogout()">Logout</button>
+</div>
+
+
+<div class="container mt-5">
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4">
+        <div *ngFor="let i=index,let book of booksArray | paginate:{ itemsPerPage:8,currentPage:p}">
+            <div class="col">
+                <div class="card border-success mb-3" style="border-radius: 5%; width: 100%; height: 400px">
+                    <img [src]=book.userImgLink class="card-img-top mx-auto " style="width: 100%; height: 200px; border-radius: 5%;padding: 10px;">
+                    <div class="card-body">
+                        <h6 class="card-text">{{book.category}}</h6>
+                        <h6 class="card-text">{{book.author}}</h6>
+                        <h6 class="card-text">{{book.publisher}}</h6>
+                        <h6 class="card-text">{{book.price | currency:"INR"}}</h6>
+                        <button class="btn btn-danger" (click)="onDelete(i)">Delete</button>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    <pagination-controls (pageChange)="p=$event" style="background-color: white;"></pagination-controls>
+</div>

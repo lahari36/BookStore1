@@ -1,0 +1,107 @@
+
+
+<div class="row flex" > 
+    <div class="col-sm-2 col-md-2">
+        </div>
+    
+    <div class="col-sm-8 col-md-8">
+        <h1 style="font-weight: bold;text-align: center;color: rgb(240, 104, 199);padding-top: 5px;">Add Books</h1>
+        <form class="row g-3  p-3" #formRef="ngForm" (ngSubmit)="onSubmit(formRef)" >
+            
+          
+            
+            <div class="col-sm-4">
+                <label  class="form-label"><i class="fas fa-book" ></i>Book Title</label>
+                <input type="text" class="form-control" id="booktitle" name="booktitle" 
+                placeholder="Book title" required ngModel #bt="ngModel">
+                <div class="text-danger" *ngIf="bt.invalid && (bt.touched || bt.dirty || formRef.submitted)">
+                    Book Title is required
+                </div>
+            </div> 
+            <div class="col-sm-4">
+                <label  class="form-label"><i class="fas fa-user" ></i>Author</label>
+                <input type="text"  class="form-control" id="author" name="author" 
+                placeholder="Author" required ngModel #a="ngModel">
+                <div class="text-danger" *ngIf="a.invalid && (a.touched || a.dirty || formRef.submitted)">
+                    Author details are required
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label  class="form-label"><i class="fas fa-address-card" ></i>Publisher</label>
+                <input type="text" class="form-control" id="publisher" placeholder="Publisher"
+                 name="publisher" required ngModel #p="ngModel">
+                 <div class="text-danger" *ngIf="p.invalid && (p.touched || p.dirty || formRef.submitted)">
+                    publisher details are required
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label  class="form-label"><i class="fas fa-calendar-alt" ></i>Published Year</label>
+                <input type="date" class="form-control" id="publishedyear" name="publishedyear" 
+                placeholder="published year" required ngModel #y="ngModel">
+                <div class="text-danger" *ngIf="y.invalid && (y.touched || y.dirty || formRef.submitted)">
+                    published year is required
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label  class="form-label"><i class="fas fa-book" ></i>Category</label>
+                <input type="text" class="form-control" id="category" name="category" 
+                placeholder="category" required ngModel #c="ngModel">
+                <div class="text-danger" *ngIf="c.invalid && (c.touched || c.dirty || formRef.submitted)">
+                    category is required
+                </div>
+            </div>         
+            <div class="col-sm-4">
+                <label  class="form-label" ><i class="fas fa-money-check" ></i>Price</label>
+                <input type="number" class="form-control" id="price" name="price" placeholder="price" 
+                minlength="3" required ngModel #m="ngModel">
+                <div class="text-danger" *ngIf="m.invalid && (m.touched || m.dirty || formRef.submitted)">
+                    price details are required
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label  class="form-label" ><i class="fas fa-camera" ></i>Image</label>
+                <input type="file" class="form-control" (change)="incomingfile($event)" 
+                required name="photo" accept='image/*' placeholder="Upload file" ngModel #img="ngModel">
+            </div>
+            <div class="col-sm-6">
+                <label  class="form-label" ><i class="fas fa-star" ></i>Demand</label>
+                <select id="rating" class="form-select" required name="rating" ngModel #r="ngModel">
+                    <option selected>Choose...</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                
+            </div>
+            <div class="form-group">
+                <label  class="form-label" ><i class="fas fa-file-alt" ></i>Description</label>
+                <input type="text-area" class="form-control" required id="description" name="description" 
+                ngModel #text="ngModel">
+                <div class="text-danger" *ngIf="text.invalid && (text.touched || text.dirty || formRef.submitted)">
+                    Description is required
+                </div>
+            </div>
+            <div class="col-4" style="display: inline; float: left;">
+                <button type="submit" class="btn btn-success  mt-3 mb-3" style="color: rgb(245, 245, 250); font-weight: bold;">Add Book</button>
+                
+            </div>
+            <div class="col-4" style="display: inline; float: left;">
+                <button type="button" class="btn btn-danger mt-3 mb-3 ms-3" style="color: rgb(241, 240, 245);font-weight: bold;" (click)="onView()">BookList</button>
+                
+            </div>
+            <div class="col-4" style="display: inline; float: left;">
+                <button type="button" class="btn  mt-3 mb-3 ms-3" style="background-color: blueviolet;color: rgb(241, 240, 245);font-weight: bold;" (click)="onList()">UserList</button>
+                
+            </div>
+        </form>
+        
+    </div>
+    <div class="col-sm-2 col-md-2">
+        <img src="https://i.postimg.cc/7Lgq94SM/usericon.jpg" style="width: 60px; height: 60px;border-radius: 50%;display: inline;float: left;">
+        <h6 style="color: white; font-weight: bold;display: inline;float: left;">Welcome Admin</h6>
+        <button class="btn btn-success" (click)="onLogout()">Logout</button>
+    </div>
+    
+</div>

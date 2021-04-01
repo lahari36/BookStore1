@@ -1,0 +1,82 @@
+<div class="row flex" > 
+    <div class="col-sm-2 col-md-2">
+        </div>
+    
+    <div class="col-sm-8 col-md-8">
+        <h1 style="font-weight: bold;text-align: center;color: white;padding-top: 5px;"><i class="fas fa-id-card"></i>User registration</h1>
+        <form class="row g-3  p-3" #formRef="ngForm" (ngSubmit)="onSubmit(formRef)" >
+            
+          
+            
+            <div class="col-sm-6">
+                <label  class="form-label"><i class="fas fa-user" ></i>Username</label>
+                <input type="text" class="form-control" id="username" name="username" 
+                placeholder="username" required ngModel #un="ngModel">
+                <div class="text-danger" *ngIf="un.invalid && (un.touched || un.dirty || formRef.submitted)">
+                    Username is required
+                </div>
+            </div> 
+            <div class="col-sm-6">
+                <label  class="form-label" ><i class="fas fa-phone" ></i>Phoneno</label>
+                <input type="number" class="form-control" id="phoneno" name="phoneno" placeholder="contact number" 
+                pattern="[0-9]{10}" required ngModel #pno="ngModel">
+                <div class="text-danger" *ngIf="pno.invalid && (pno.touched || pno.dirty || formRef.submitted)">
+                    <div *ngIf="pno.errors?.required">Phone number is required</div>
+                    <div *ngIf="pno.errors?.pattern">Legngth is 10</div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <label  class="form-label"><i class="fas fa-envelope" ></i>Email</label>
+                <input type="email"  class="form-control" id="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email" 
+                placeholder="xyz@email.com" required ngModel #mail="ngModel">
+                <div class="text-danger" *ngIf="mail.invalid && (mail.touched || mail.dirty || formRef.submitted)">
+                    <div *ngIf="mail.errors?.required" class="text-danger">Email is required</div>
+                    <div class="text-danger" *ngIf="mail.errors?.pattern">Invalid Pattern</div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label  class="form-label"><i class="fas fa-lock" ></i>Password</label>
+                <input type="password" class="form-control" id="password" placeholder="password"
+                 name="password" pattern="^(?=.*?[0-9])(?=.*[A-Z]).*$" minlength="6" required ngModel #p="ngModel">
+                 <div class="text-danger" *ngIf="p.invalid && (p.touched || p.dirty || formRef.submitted)">
+                    <div *ngIf="p.errors?.required">password details are required</div>
+                    <div *ngIf="p.errors?.pattern" >Password should contain 1 Capital letter & 1 number</div>
+                    <div *ngIf="p.errors?.minlength">Password should contain min 6 char</div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label  class="form-label"><i class="fas fa-lock" ></i>Confirm Password</label>
+                <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" 
+                placeholder="Confirm Password"  pattern="^(?=.*?[0-9])(?=.*[A-Z]).*$" minlength="6"  required ngModel #cp="ngModel">
+                <div class="text-danger" *ngIf="cp.invalid && (cp.touched || cp.dirty || formRef.submitted)">
+                    <div *ngIf="cp.errors?.required">Confirm password details are required</div>
+                    <div *ngIf="cp.errors?.pattern" >Confirm Password should contain 1 Capital letter & 1 number</div>
+                    <div *ngIf="cp.errors?.minlength">Confirm Password should contain min 6 char</div>
+                </div>
+            </div>
+                    
+            <div class="col-sm-12">
+                <label  class="form-label"><i class="fas fa-address-card" ></i>Address</label>
+                <input type="text-area"  class="form-control" id="address" name="address" 
+                placeholder="complete address with door number and pincode" required ngModel #add="ngModel">
+                <div class="text-danger" *ngIf="add.invalid && (add.touched || add.dirty || formRef.submitted)">
+                    <div *ngIf="add.errors?.required" class="text-danger">Address is required</div>
+                    
+                </div>
+            </div>
+            
+            <div class="col-6" style="display: inline; float: left;">
+                <button type="submit" class="btn  mt-3 mb-3" style="color: rgb(11, 9, 90); font-weight: bold;background-color: rgb(208, 226, 43);">Register</button>
+                
+            </div>
+            <div class="col-6" style="display: inline; float: left;">
+                <button type="button" class="btn  mt-3 mb-3 ms-3" style="background-color: rgb(43, 226, 43);color: rgb(20, 14, 100);font-weight: bold;" (click)="onLogin()">Login</button>
+                
+            </div>
+        </form>
+        
+    </div>
+    <div class="col-sm-2 col-md-2"></div>
+    
+</div>
+
