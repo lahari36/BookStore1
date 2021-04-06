@@ -18,8 +18,13 @@ export class SearchPipe implements PipeTransform {
       if(category.length!==0){
         return category;
       }
-      else{
+     
+      else if(author.length!==0){
         return author;
+      }
+      else{
+        alert("No data matches your search");
+        return booksArray;
       }
       
     }

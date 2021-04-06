@@ -10,17 +10,20 @@ import { AddbookComponent } from './addbook/addbook.component';
 import { BooklistComponent } from './booklist/booklist.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { BookeditComponent } from './bookedit/bookedit.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 
 @NgModule({
-  declarations: [AdminComponent, RegisterComponent, AddbookComponent, BooklistComponent, UserlistComponent],
+  declarations: [AdminComponent, RegisterComponent, AddbookComponent, BooklistComponent, UserlistComponent, BookeditComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgbModule
   ]
 })
 export class AdminModule { }

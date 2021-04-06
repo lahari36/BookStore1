@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BookService } from 'src/app/book.service';
+import { NotifierService } from 'src/app/notifier.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class HomeComponent implements OnInit {
   category=new Array();
   
   bookObj:any;
-  constructor(private bs:BookService,private router:Router) { }
+  constructor(private bs:BookService,private router:Router,private notifierService:NotifierService) { }
   
   ngOnInit(): void {
     this.bs.getBooks().subscribe(
@@ -37,7 +38,8 @@ export class HomeComponent implements OnInit {
         
       },
       err=>{
-        alert("something went wrong in getting books");
+        //alert("something went wrong in getting books");
+        this.notifierService.showNotification('something went wrong in getting books','Dismiss')
         console.log(err);
       }
     )

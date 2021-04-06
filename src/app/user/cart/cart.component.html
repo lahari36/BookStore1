@@ -1,0 +1,55 @@
+
+<!-------------------------------------------------------------------->
+<div class="container">
+    <div class="row" >
+        
+        <div class="col-sm-10" >
+            <h1 style="text-align: center;color: white;">Books In Cart</h1>
+            <h4 style="color: white;">Total Cost = {{amount | currency:"INR"}}</h4>
+            <div class="card mt-3 mb-3" style="width: 100%;" *ngFor="let b of cartArray,let i=index"  >
+                <div class="row no-gutters">
+                    <div class="col-sm-5">
+                        <img class="card-img" [src]=b.ImgLink height="400px" width="100%">
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="card-body">
+                            <p class="card-text"><b>Title:</b>{{b.booktitle}}</p>
+                            <p class="card-text"><b>Author:</b>{{b.author}}</p>
+                            <p class="card-text"><b>Publisher:</b>{{b.publisher}}</p>
+                            <p class="card-text"><b>Price:</b>{{b.price | currency:"INR"}}</p>
+                            <p><b>Rating:</b><ngb-rating [max]="5" style="color: rgb(231, 136, 27);" [(rate)]=b.rating [readonly]="true"></ngb-rating></p>
+                            <div class="content" style="display: inline;float: left;">
+                                <button class="btn btn-primary" id="button1" type="button"(click)="decrement(b)"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                <span [value]=b.quantity class="p-1"> {{b.quantity}} </span>
+                                <button class="btn btn-primary" id="button2" type="button" (click)="increment(b)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                
+                                
+                            </div>
+                            <div style="padding-left: 10px;display: inline;float: left;">
+                                <button class="btn btn-danger" (click)="onRemove(i)">Remove</button>
+                            </div>
+                            <div style="padding-left: 10px;display: inline;float: left;">
+                                <button class="btn btn-primary" (click)="onBuy(i)">Buy</button>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-sm-2">
+            <div class="icon" style="display: inline;float: right;padding-right: 5px;">
+                <img src="https://i.postimg.cc/7Lgq94SM/usericon.jpg" style="width: 100px; padding-left: 50px;height: 60px;display: inline;float: left;">
+                <div class="dropdown">
+                    <button class="dropbtn">Welcome {{username}}</button>
+                    <div class="dropdown-content">
+                      <a (click)="onLogout()" style="font-size: 15px;">Logout</a>
+                      <a routerLink="/userdashboard" style="font-size: 15px;">Back</a>
+                      
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>

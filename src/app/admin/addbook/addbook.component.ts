@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BookService } from 'src/app/book.service';
+import { NotifierService } from 'src/app/notifier.service';
 
 @Component({
   selector: 'app-addbook',
@@ -13,7 +14,7 @@ export class AddbookComponent implements OnInit {
   incomingfile(event:any) {
     this.file= event.target.files[0]; 
   } 
-  constructor(private bs:BookService,private router:Router) { }
+  constructor(private bs:BookService,private router:Router,private notifierService:NotifierService) { }
   onSubmit(formRef){
     let booksObj=formRef.value;
     let formData=new FormData(); 
@@ -24,15 +25,17 @@ export class AddbookComponent implements OnInit {
     this.bs.createBook(formData).subscribe(
       res=>{
         if(res.message=="book created"){
-          alert("book created successfully")
-          
+          //alert("book created successfully")
+          this.notifierService.showNotification('book created successfully','Thank You')
         }
         if(res.message=="book already existed"){
-          alert("book already existed...choose another bookid")
+          //alert("book already existed...choose another bookid")
+          this.notifierService.showNotification('book already existed...choose another bookid','Dismiss')
         }
       },
       err=>{
-        alert("something went wrong in book creation")
+        //alert("something went wrong in book creation")
+        this.notifierService.showNotification('something went wrong in book creation','Dismiss')
         console.log(err)
       }
     )

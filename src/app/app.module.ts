@@ -10,6 +10,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import {HomeModule} from './home/home.module'
 import {UserModule} from './user/user.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -31,7 +33,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgxPaginationModule,
     HomeModule,
     UserModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

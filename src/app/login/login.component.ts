@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BookService } from '../book.service';
+import { NotifierService } from '../notifier.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { BookService } from '../book.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private bs:BookService,private router:Router) { }
+  constructor(private bs:BookService,private router:Router,private notifierService:NotifierService) { }
 
   ngOnInit(): void {
     
@@ -30,11 +31,13 @@ export class LoginComponent implements OnInit {
             this.router.navigateByUrl("/admin/addbook")
           }
           else{
-            alert(res.message)
+            //alert(res.message)
+            this.notifierService.showNotification(res.message,'Dismiss')
           }
         },
         err=>{
-          alert("Something went wrong in admin login")
+          //alert("Something went wrong in admin login")
+          this.notifierService.showNotification('Something went wrong in admin login','Dismiss')
             console.log(err)
         }
       )
@@ -51,20 +54,23 @@ export class LoginComponent implements OnInit {
   
           }
           else if(res.message="Invalid username"){
-            alert("Invalid user")
+            //alert("Invalid user")
+            this.notifierService.showNotification('Invalid user','Dismiss')
            
             
           }
           else{
             if(res.message="Invalid password"){
-              alert("Invalid password")
+              //alert("Invalid password")
+              this.notifierService.showNotification('Invalid password','Dismiss')
             }
   
             
           }
         },
         err=>{
-          alert("something went wrong in login")
+          //alert("something went wrong in login")
+          this.notifierService.showNotification('something went wrong in login','Dismiss')
           console.log(err)
         }
       )

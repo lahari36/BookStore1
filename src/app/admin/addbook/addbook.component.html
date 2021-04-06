@@ -100,8 +100,14 @@
     </div>
     <div class="col-sm-2 col-md-2">
         <img src="https://i.postimg.cc/7Lgq94SM/usericon.jpg" style="width: 60px; height: 60px;border-radius: 50%;display: inline;float: left;">
-        <h6 style="color: white; font-weight: bold;display: inline;float: left;">Welcome Admin</h6>
-        <button class="btn btn-success" (click)="onLogout()">Logout</button>
+        <div class="dropdown">
+            <button class="dropbtn">Admin</button>
+            <div class="dropdown-content">
+              <a (click)="onLogout()">Logout</a>
+              
+              
+            </div>
+          </div>
     </div>
     
 </div>

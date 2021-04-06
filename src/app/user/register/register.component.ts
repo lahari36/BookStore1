@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BookService } from 'src/app/book.service';
+import { NotifierService } from 'src/app/notifier.service';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +10,7 @@ import { BookService } from 'src/app/book.service';
 })
 export class RegisterComponent implements OnInit {
   userObj:any;
-  constructor(private bs:BookService,private router:Router) { }
+  constructor(private bs:BookService,private router:Router,private notifierService:NotifierService) { }
   onLogin(){
     this.router.navigateByUrl("/login")
   }
@@ -19,19 +20,23 @@ export class RegisterComponent implements OnInit {
       this.bs.createUser(this.userObj).subscribe(
         res=>{
           if(res.message=="user existed"){
-            alert("username is already taken.. choose another")
+            //alert("username is already taken.. choose another")
+            this.notifierService.showNotification('username is already taken.. choose another','Dismiss')
           }
           else if(res.message=="password and confirmpassword should be same"){
-            alert("password & confirm password should be same")
+           // alert("password & confirm password should be same")
+            this.notifierService.showNotification('password & confirm password should be same','Dismiss')
           }
           else{
-            alert("user created successfully")
+            //alert("user created successfully")
+            this.notifierService.showNotification('user created successfully','Thank You')
             this.router.navigateByUrl("/login")
           }
           
         },
         err=>{
-          alert("something went wrong in user creation")
+          //alert("something went wrong in user creation")
+          this.notifierService.showNotification('something went wrong in user creation','Dismiss')
           console.log(err)
         }
       )

@@ -16,6 +16,7 @@
                     <p ><b>Author:</b>{{bookObj.author}}</p>
                     <p><b>Publisher:</b>{{bookObj.publisher}}</p>
                     <p><b>Publisher Date:</b>{{bookObj.publishedyear }}</p>
+                    <p><b>Rating:</b><ngb-rating [max]="5" style="color: rgb(231, 136, 27);" [(rate)]=bookObj.rating [readonly]="true"></ngb-rating></p>
                     <p><b>Price:</b>{{bookObj.price}}/-</p>
                     <p><b>Description:</b>{{bookObj.description}}</p>
                     

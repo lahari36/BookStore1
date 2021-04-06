@@ -1,8 +1,8 @@
 const exp=require("express");
 const booksApiObj=exp.Router();
 const errorHandler=require("express-async-handler")
-const path=require("path")
-
+const path=require("path");
+const verifyToken=require("./middlewares/verifyToken")
 const bcryptjs=require("bcryptjs");
 
 
@@ -57,7 +57,7 @@ booksApiObj.post("/createbook",upload.single('photo'),errorHandler(async (req,re
     }
 }))
 
-
++
 //get
 booksApiObj.get("/getbooks",errorHandler(async (req,res,next)=>{
 
@@ -90,6 +90,27 @@ booksApiObj.get("/getbooks1/:category",errorHandler(async(req,res,next)=>{
 
     let categoryArray=await booksCollectionObj.find({category:req.params.category}).toArray();
     res.send({message:categoryArray})
+}))
+booksApiObj.put("/editbook",errorHandler(async(req,res,next)=>{
+    //get book obj
+    let booksCollectionObj=req.app.get("booksCollectionObj");
+
+    let bookObj=await booksCollectionObj.findOne({booktitle:req.body.booktitle});
+    if(bookObj!=null){
+        let success=await booksCollectionObj.updateOne({booktitle:req.body.booktitle},{$set:{
+            author:req.body.author,
+            publisher:req.body.publisher,
+            publishedyear:req.body.publishedyear,
+            category:req.body.category,
+            price:req.body.price,
+            rating:req.body.rating,
+            description:req.body.description
+        }});
+        res.send({message:"success"});
+    }
+    else{
+        res.send({message:"Book not found"})
+    }
 }))
 //export 
 module.exports=booksApiObj;
