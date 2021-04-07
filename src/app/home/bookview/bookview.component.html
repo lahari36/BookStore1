@@ -18,7 +18,7 @@
                     <p><b>Publisher Date:</b>{{bookObj.publishedyear }}</p>
                     <p><b>Rating:</b><ngb-rating [max]="5" style="color: rgb(231, 136, 27);" [(rate)]=bookObj.rating [readonly]="true"></ngb-rating></p>
                     <p><b>Price:</b>{{bookObj.price}}/-</p>
-                    <p><b>Description:</b>{{bookObj.description}}</p>
+                    <p style="font-size: 15px;"><b>Description:</b>{{bookObj.description}}</p>
                     
                     <div style="display: inline; float: left;">
                         <button class="btn btn-success" (click)="onAdd()">Add to Cart</button>
