@@ -10,14 +10,12 @@ require("dotenv").config();
 const path=require("path")
 
 const errorHandler=require("express-async-handler")
-
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+  });
 app.use(exp.static(path.join(__dirname,"dist/OnlineBookStore")))
-app.use((req,res,next)=>{
-    res.setHeader('Acces-Control-Allow-Origin','*');
-    res.setHeader('Acces-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
-    res.setHeader('Acces-Contorl-Allow-Methods','Content-Type','Authorization');
-    next(); 
-})
+
 //import Api obj
 const userApiObj=require("./APIS/userApi")
 const booksApiObj=require("./APIS/booksApi")
