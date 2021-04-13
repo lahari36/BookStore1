@@ -90,7 +90,7 @@ userApiObj.delete("/deleteuser/:userid",verifyToken,errorHandler(async(req,res,n
     //get usercollectionobject
     let userCollectionObj=req.app.get("userCollectionObj")
 
-    let success=await userCollectionObj.removeOne({userid:req.params.userid})
+    let success=await userCollectionObj.removeOne({userid:+req.params.userid})
     res.send({message:"user deleted"})    
 }))
 //export 

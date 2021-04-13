@@ -44,11 +44,11 @@ export class BooklistComponent implements OnInit {
   //Delete book
  onDelete(i){
    let bookid=this.booksArray[i].bookid
-   //console.log(booktitle)
+   console.log(bookid)
    this.bs.deleteBook(bookid).subscribe(
      res=>{
        if(res.message=="book deleted"){
-         this.notifierService.showNotification('Book deled successfully','Thank You');
+         this.notifierService.showNotification('Book deleted successfully','Thank You');
          window.location.reload();
        }
      },
