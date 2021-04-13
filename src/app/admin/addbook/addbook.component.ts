@@ -10,13 +10,26 @@ import { NotifierService } from 'src/app/notifier.service';
 })
 export class AddbookComponent implements OnInit {
   file:File; 
+  length:number;
   username=localStorage.getItem("username")
   incomingfile(event:any) {
     this.file= event.target.files[0]; 
   } 
   constructor(private bs:BookService,private router:Router,private notifierService:NotifierService) { }
+  ngOnInit(): void {
+    this.bs.getBooks().subscribe(
+      res=>{
+        this.length=res.message.length;
+        //console.log(this.length)
+      },
+      err=>{
+        this.notifierService.showNotification('Something went wrong in getting data','Dismiss')
+      }
+    )
+  }
   onSubmit(formRef){
     let booksObj=formRef.value;
+    booksObj.bookid=this.length+1;
     let formData=new FormData(); 
     //adding image and other data to FormData object 
     formData.append('photo',this.file,this.file.name); 
@@ -42,6 +55,7 @@ export class AddbookComponent implements OnInit {
 
 
   }
+  //buttons action
   onView(){
     //navigate to all products
     this.router.navigateByUrl("/admin/booklist")
@@ -53,7 +67,6 @@ export class AddbookComponent implements OnInit {
   onList(){
     this.router.navigateByUrl("/admin/userlist")
   }
-  ngOnInit(): void {
-  }
+ 
 
 }

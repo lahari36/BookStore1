@@ -35,7 +35,7 @@ var upload = multer({ storage: storage });
 booksApiObj.use(exp.json())
 
 //req handlers
-booksApiObj.post("/createbook",upload.single('photo'),errorHandler(async (req,res,next)=>{
+booksApiObj.post("/createbook",verifyToken,upload.single('photo'),errorHandler(async (req,res,next)=>{
 
     //get bookscoll obj
     let booksCollectionObj=req.app.get("booksCollectionObj");
@@ -44,7 +44,7 @@ booksApiObj.post("/createbook",upload.single('photo'),errorHandler(async (req,re
     
     //console.log("req body is",req.body);
 
-    let book=await booksCollectionObj.findOne({booktitle:booksObj.booktitle});
+    let book=await booksCollectionObj.findOne({bookid:booksObj.bookid});
     if(book==null){
 
         //for image
@@ -57,7 +57,7 @@ booksApiObj.post("/createbook",upload.single('photo'),errorHandler(async (req,re
     }
 }))
 
-+
+
 //get
 booksApiObj.get("/getbooks",errorHandler(async (req,res,next)=>{
 
@@ -66,22 +66,22 @@ booksApiObj.get("/getbooks",errorHandler(async (req,res,next)=>{
 
    let booksArray= await booksCollectionObj.find().toArray();
    res.send({message:booksArray})
-}))
+}))+
 
 //delete
-booksApiObj.delete("/deletebook/:booktitle",errorHandler(async (req,res,next)=>{
+booksApiObj.delete("/deletebook/:bookid",verifyToken,errorHandler(async (req,res,next)=>{
 
      //get book obj
      let booksCollectionObj=req.app.get("booksCollectionObj")
 
-     let success=await booksCollectionObj.removeOne({booktitle:req.params.booktitle})
+     let success=await booksCollectionObj.removeOne({bookid:+req.params.bookid})
      res.send({message:"book deleted"})
 }))
-booksApiObj.get("/getbook/:booktitle",errorHandler(async(req,res,next)=>{
+booksApiObj.get("/getbook/:bookid",errorHandler(async(req,res,next)=>{
     //get book obj
     let booksCollectionObj=req.app.get("booksCollectionObj");
 
-    let bookObj=await booksCollectionObj.findOne({booktitle:req.params.booktitle})
+    let bookObj=await booksCollectionObj.findOne({bookid:+req.params.bookid})
     res.send(bookObj)
 }))
 booksApiObj.get("/getbooks1/:category",errorHandler(async(req,res,next)=>{
@@ -91,13 +91,13 @@ booksApiObj.get("/getbooks1/:category",errorHandler(async(req,res,next)=>{
     let categoryArray=await booksCollectionObj.find({category:req.params.category}).toArray();
     res.send({message:categoryArray})
 }))
-booksApiObj.put("/editbook",errorHandler(async(req,res,next)=>{
+booksApiObj.put("/editbook",verifyToken,errorHandler(async(req,res,next)=>{
     //get book obj
     let booksCollectionObj=req.app.get("booksCollectionObj");
 
-    let bookObj=await booksCollectionObj.findOne({booktitle:req.body.booktitle});
+    let bookObj=await booksCollectionObj.findOne({bookid:+req.body.bookid});
     if(bookObj!=null){
-        let success=await booksCollectionObj.updateOne({booktitle:req.body.booktitle},{$set:{
+        let success=await booksCollectionObj.updateOne({bookid:+req.body.bookid},{$set:{
             author:req.body.author,
             publisher:req.body.publisher,
             publishedyear:req.body.publishedyear,

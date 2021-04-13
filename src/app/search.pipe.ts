@@ -1,10 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { NotifierService } from './notifier.service';
 
 @Pipe({
   name: 'search'
 })
 export class SearchPipe implements PipeTransform {
-
+  constructor(private notifierservice:NotifierService){}
    transform(booksArray: any[], search: string): any[] {
     
     if(!search){
@@ -23,7 +24,8 @@ export class SearchPipe implements PipeTransform {
         return author;
       }
       else{
-        alert("No data matches your search");
+        //alert("No data matches your search");
+        this.notifierservice.showNotification('No data matches your search','Dismiss')
         return booksArray;
       }
       

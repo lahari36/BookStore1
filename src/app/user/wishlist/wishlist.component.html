@@ -1,24 +1,46 @@
 
 
 <div class="container mb-5">
-    <div class="row" >
+
+    <div class="row">
+      <div class="col-sm-10">
+        <h1 style="text-align: center;color: white;text-transform: uppercase;padding-top: 30px;">wishlist of {{username}}</h1>
+      </div>
+      <div class="col-sm-2">
+        <div class="icon" style="display: inline;float: right;padding-right: 5px;">
+            <img src="https://i.postimg.cc/7Lgq94SM/usericon.jpg" style="width: 100px; padding-left: 50px;height: 60px;display: inline;float: left;">
+            <div class="dropdown">
+                <button class="dropbtn">Welcome {{username}}</button>
+                <div class="dropdown-content">
+                  <a (click)="onLogout()" style="font-size: 15px;">Logout</a>
+                  <a routerLink="/userdashboard" style="font-size: 15px;">Back</a>
+                  
+                </div>
+              </div>
+        </div>
+    </div>
+    </div>
+    <div class="row mt-2" >
         
-        <div class="col-sm-10" >
-            <h1 style="text-align: center;color: white;">Books In Wishlist</h1>
+        <div class="col-sm-12" >
+           
             <h4 style="color: white;">Total Cost = {{price}}/-</h4>
-            <div class="card mt-3" style="width: 100%;" *ngFor="let v of wishlistArray,let i=index"  >
+            <div class="card mt-3 mb-3" style="width: 100%;" *ngFor="let v of wishlistArray,let i=index"  >
                 <div class="row no-gutters">
                     <div class="col-sm-5">
                         <img class="card-img" [src]=v.ImgLink height="400px" width="100%">
                     </div>
                     <div class="col-sm-7">
                         <div class="card-body">
-                            <p class="card-text"><b>Title:</b>{{v.booktitle}}</p>
-                            <p class="card-text"><b>Author:</b>{{v.author}}</p>
-                            <p class="card-text"><b>Publisher:</b>{{v.publisher}}</p>
-                            <p class="card-text"><b>Category:</b>{{v.category}}</p>
+                            <p class="card-text"><b>Title:</b>  {{v.booktitle}}</p>
+                            <p class="card-text"><b>Author:</b>  {{v.author}}</p>
+                            <p class="card-text"><b>Publisher:</b>  {{v.publisher}}</p>
+                            <p class="card-text"><b>Category:</b>  {{v.category}}</p>
                             <p><b>Rating:</b><ngb-rating [max]="5" style="color: rgb(231, 136, 27);" [(rate)]=v.rating [readonly]="true"></ngb-rating></p>
-                            <p class="card-text"><b>Price:</b>{{v.price}}/-</p>
+                            <p class="card-text text-success" *ngIf="v.status=='available'"><b style="color: black;">Status:</b>  {{v.status}}</p>
+                            <p class="card-text text-danger" *ngIf="v.status=='unavailable'"><b style="color: black;">Status:</b>  {{v.status}}</p>
+                            <p class="card-text" *ngIf="v.status=='available'"><b>Price:</b>  {{v.price}}/-</p>
+                            <p class="card-text" *ngIf="v.status=='unavailable'"><b>Price:</b> <strike>{{v.price}}</strike>/- </p>
                             <div style="display: inline; float: left;padding-right: 10px;" >
                                 <button class="btn btn-primary" (click)="onCart(i)">Add to Cart</button>
                             </div>
@@ -33,18 +55,6 @@
             </div>
             
         </div>
-        <div class="col-sm-2">
-            <div class="icon" style="display: inline;float: right;padding-right: 5px;">
-                <img src="https://i.postimg.cc/7Lgq94SM/usericon.jpg" style="width: 100px; padding-left: 50px;height: 60px;display: inline;float: left;">
-                <div class="dropdown">
-                    <button class="dropbtn">Welcome {{username}}</button>
-                    <div class="dropdown-content">
-                      <a (click)="onLogout()" style="font-size: 15px;">Logout</a>
-                      <a routerLink="/userdashboard" style="font-size: 15px;">Back</a>
-                      
-                    </div>
-                  </div>
-            </div>
-        </div>
+        
     </div>
 </div>

@@ -9,7 +9,7 @@
         <form class="row g-3  p-3" #formRef="ngForm" (ngSubmit)="onSubmit(formRef)" >
             
           
-            
+            <!--booktitle-->
             <div class="col-sm-4">
                 <label  class="form-label"><i class="fas fa-book" ></i>Book Title</label>
                 <input type="text" class="form-control" id="booktitle" name="booktitle" 
@@ -17,7 +17,8 @@
                 <div class="text-danger" *ngIf="bt.invalid && (bt.touched || bt.dirty || formRef.submitted)">
                     Book Title is required
                 </div>
-            </div> 
+            </div>
+             <!--author--> 
             <div class="col-sm-4">
                 <label  class="form-label"><i class="fas fa-user" ></i>Author</label>
                 <input type="text"  class="form-control" id="author" name="author" 
@@ -26,6 +27,7 @@
                     Author details are required
                 </div>
             </div>
+             <!--publisher-->
             <div class="col-sm-4">
                 <label  class="form-label"><i class="fas fa-address-card" ></i>Publisher</label>
                 <input type="text" class="form-control" id="publisher" placeholder="Publisher"
@@ -34,6 +36,7 @@
                     publisher details are required
                 </div>
             </div>
+             <!--published year-->
             <div class="col-sm-4">
                 <label  class="form-label"><i class="fas fa-calendar-alt" ></i>Published Year</label>
                 <input type="date" class="form-control" id="publishedyear" name="publishedyear" 
@@ -42,6 +45,7 @@
                     published year is required
                 </div>
             </div>
+             <!--category-->
             <div class="col-sm-4">
                 <label  class="form-label"><i class="fas fa-book" ></i>Category</label>
                 <input type="text" class="form-control" id="category" name="category" 
@@ -49,7 +53,8 @@
                 <div class="text-danger" *ngIf="c.invalid && (c.touched || c.dirty || formRef.submitted)">
                     category is required
                 </div>
-            </div>         
+            </div>  
+             <!--price-->       
             <div class="col-sm-4">
                 <label  class="form-label" ><i class="fas fa-money-check" ></i>Price</label>
                 <input type="number" class="form-control" id="price" name="price" placeholder="price" 
@@ -58,11 +63,13 @@
                     price details are required
                 </div>
             </div>
+             <!--image-->
             <div class="col-sm-6">
                 <label  class="form-label" ><i class="fas fa-camera" ></i>Image</label>
                 <input type="file" class="form-control" (change)="incomingfile($event)" 
                 required name="photo" accept='image/*' placeholder="Upload file" ngModel #img="ngModel">
             </div>
+             <!--rating-->
             <div class="col-sm-6">
                 <label  class="form-label" ><i class="fas fa-star" ></i>Demand</label>
                 <select id="rating" class="form-select" required name="rating" ngModel #r="ngModel">
@@ -75,6 +82,7 @@
                 </select>
                 
             </div>
+             <!--Description-->
             <div class="form-group">
                 <label  class="form-label" ><i class="fas fa-file-alt" ></i>Description</label>
                 <input type="text-area" class="form-control" required id="description" name="description" 
@@ -83,14 +91,17 @@
                     Description is required
                 </div>
             </div>
+             <!--submit-->
             <div class="col-4" style="display: inline; float: left;">
                 <button type="submit" class="btn btn-success  mt-3 mb-3" style="color: rgb(245, 245, 250); font-weight: bold;">Add Book</button>
                 
             </div>
+             <!--booklist-->
             <div class="col-4" style="display: inline; float: left;">
                 <button type="button" class="btn btn-danger mt-3 mb-3 ms-3" style="color: rgb(241, 240, 245);font-weight: bold;" (click)="onView()">BookList</button>
                 
             </div>
+             <!--userlist-->
             <div class="col-4" style="display: inline; float: left;">
                 <button type="button" class="btn  mt-3 mb-3 ms-3" style="background-color: blueviolet;color: rgb(241, 240, 245);font-weight: bold;" (click)="onList()">UserList</button>
                 
@@ -98,6 +109,7 @@
         </form>
         
     </div>
+    <!--admin logout-->
     <div class="col-sm-2 col-md-2">
         <img src="https://i.postimg.cc/7Lgq94SM/usericon.jpg" style="width: 60px; height: 60px;border-radius: 50%;display: inline;float: left;">
         <div class="dropdown">

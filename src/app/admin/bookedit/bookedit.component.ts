@@ -16,6 +16,7 @@ export class BookeditComponent implements OnInit {
   bookdata;
 
   registerForm=new FormGroup({
+    bookid:new FormControl({value:'',disabled:true}),
     booktitle:new FormControl({value:'',disabled:true}),
     author: new FormControl(''),
     publisher: new FormControl(''),
@@ -38,12 +39,13 @@ export class BookeditComponent implements OnInit {
   constructor(private bs:BookService,private router:Router,private notifierService:NotifierService) { }
 
   ngOnInit(): void {
-    let booktitle=localStorage.getItem("booktitle");
-    this.bs.getBook(booktitle).subscribe(
+    let bookid=localStorage.getItem("bookid");
+    this.bs.getBook(bookid).subscribe(
       res=>{
         if(res!=null){
           this.bookObj=res;
           this.registerForm=new FormGroup({
+            bookid:new FormControl(this.bookObj.bookid),
             booktitle:new FormControl(this.bookObj.booktitle),
             author:new FormControl(this.bookObj.author),
             publisher:new FormControl(this.bookObj.publisher),

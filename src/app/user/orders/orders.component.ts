@@ -10,12 +10,13 @@ import { NotifierService } from 'src/app/notifier.service';
 })
 export class OrdersComponent implements OnInit {
   orderArray=[];
-  username=localStorage.getItem("username")
+  username:string;
+  userid=localStorage.getItem("userid")
   constructor(private bs:BookService,private router:Router,private notifierService:NotifierService) { }
 
   ngOnInit(): void {
-    let username=localStorage.getItem("username");
-    this.bs.getOrder(username).subscribe(
+    let userid=localStorage.getItem("userid");
+    this.bs.getOrder(userid).subscribe(
       res=>{
         this.orderArray=res.message;
         //console.log(this.orderArray)
@@ -25,11 +26,12 @@ export class OrdersComponent implements OnInit {
         console.log(err)
       }
     )
+    this.getUser();
   }
   onDelete(i){
     let obj=this.orderArray[i];
-    let booktitle=obj.booktitle
-    this.bs.deleteOrder(booktitle).subscribe(
+    let bookid=obj.bookid
+    this.bs.deleteOrder(bookid).subscribe(
       res=>{
         if(res.message="book returned successfully"){
           //alert("Book returned successfully")
@@ -46,5 +48,17 @@ export class OrdersComponent implements OnInit {
   onLogout(){
     localStorage.clear();
     this.router.navigateByUrl("/home")
+  }
+  getUser(){
+    this.bs.getUser(this.userid).subscribe(
+      res=>{
+        this.username=res.user.name;
+        //console.log(this.username)
+      },
+      err=>{
+        this.notifierService.showNotification('Something went wrong in getting user','Dismiss')
+        console.log(err)
+      }
+    )
   }
 }

@@ -5,29 +5,15 @@
         <h1 class="mt-3" style="text-align: center; color: white"><i class="fas fa-user-shield" style="color: rgb(238, 71, 196);"></i>  Login</h1>
         <form  #formRef="ngForm" (ngSubmit)="onSubmit(formRef)" >
             
-           <!-- <div class="form-group mt-2">
-                <div style="display: inline;float: left;">
-                    <input type="radio"  #type="ngModel" name="type" id="admin" value="admin" required ngModel>
-                <label class="form-label"  style="font-size: 15pt;color: cornsilk; font-weight: bold;">Admin</label>
-                </div>
-                
-                <div style="display: inline;float: left; padding-left: 30px;">
-                    <input type="radio"   #type="ngModel" name="type" id="user" value="user" required ngModel>
-                    <label class="form-label"  style="font-size: 15pt;color: cornsilk; font-weight: bold;">User</label>
-                </div>
-                
-                <div class="text-danger" *ngIf="(type.invalid && (type.touched || type.dirty || formRef.submitted))">
-                    <div *ngIf="type.errors?.required">Usertype is required</div>
-                    
-                </div>
-            </div><br>-->
+           <!----------------------username------------------------>
           <div class="form-group mt-3">
-              <label for="inputAddress" class="form-label" style="font-size: 15pt;color:white; font-weight: bold;"><i class="fas fa-user" style="color: rgb(184, 63, 184);"></i>  Username</label>
-              <input type="text" class="form-control" id="inputAddress" name="username" placeholder="username" required ngModel #un="ngModel">
+              <label for="inputAddress" class="form-label" style="font-size: 15pt;color:white; font-weight: bold;"><i class="fas fa-user" style="color: rgb(184, 63, 184);"></i>  UserId</label>
+              <input type="text" class="form-control" id="inputAddress" name="userid" placeholder="UserId" required ngModel #un="ngModel">
               <div class="text-danger" *ngIf="un.invalid && (un.touched || un.dirty || formRef.submitted)">
-                Username is required
+                UserId is required
               </div>
           </div>
+          <!----------------------password------------------------>
           <div class="form-group mt-3">
               <label for="inputPassword4" class="form-label" style="font-size: 15pt;color:white; font-weight: bold;"><i class="fas fa-lock" style="color: rgb(223, 59, 223);"></i>  Password</label>
               <input type="password" class="form-control" id="inputPassword4" placeholder="password" pattern="^(?=.*?[0-9])(?=.*[A-Z]).*$" name="password" required ngModel #pw="ngModel">
@@ -37,12 +23,15 @@
               </div>
             </div>          
         
-        
-            <div class="col-3" style="display: inline; float: left; padding-left: 30px;">
-              <button type="submit" class="btn mt-3 mb-3" [disabled]="formRef.invalid" style="font-weight: bold;color: rgb(17, 9, 56);background-color: rgb(67, 230, 34);">Login</button>
+            <!----------------------submit button------------------------>
+            <div class="col-6" style="display: inline; float: left; padding-left: 30px;">
+              <button type="submit" class="btn mt-3 mb-3 btn-success" [disabled]="formRef.invalid" style="font-weight: bold;">Login</button>
               
           </div>
-          
+          <div class="col-6" style="display: inline; float: left;">
+            <button  class="btn mt-3 mb-3 btn-primary"  style="font-weight: bold;"><a routerLink="/register" style="color: white; text-decoration: none;">Register</a></button>
+            
+        </div>
       </form>
       </div>
       <div class="col-sm-4"></div>

@@ -31,3 +31,5 @@ const verifyToken=(req,res,next)=>{
 
 
 }
+//export
+module.exports=verifyToken;

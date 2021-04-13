@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-sm-2"></div>
             <div class="col-sm-10">
-                <nav class="navbar navbar-expand-lg">
+                <nav class="navbar navbar-expand-md">
                     <a class="navbar-brand" href="#"><i class="fas fa-book mb-3" ></i></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"><i class="fas fa-bars" style="color: white;"></i></span>
@@ -63,7 +63,7 @@
                                     
                                     <p class="card-text" ><b>{{book.price | currency:"INR"}}</b></p>
                                     <p><b>Rating:</b><ngb-rating [max]="5" style="color: rgb(231, 136, 27);" [(rate)]=book.rating [readonly]="true"></ngb-rating></p>
-                                    <div style="display: inline; float: left;padding: 5px;">
+                                    <div style="display: inline; float: left;padding: 5px;" data-toggle="modal" data-target="#myModal">
                                         <button class="btn btn-success" (click)="onBuy(i)"><i class="fas fa-money-check" ></i>Buy</button>
                                     </div>
                                     <div style="display: inline; float: left;padding: 5px;">
@@ -73,7 +73,25 @@
                                     <div style="display: inline; float: left; padding: 5px;padding-left: 40px;">
                                         <button class="btn btn-small"  style="background-color: blueviolet;color: white;" (click)="onWishlist(i)"><i class="fas fa-heart"></i>wishlist</button>
                                     </div>
-                                    
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="myModal" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                             
+                                              <h4 class="modal-title">Price Details</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                              <p>Book cost          =       {{bookcost}}/-</p>
+                                              <p>Delivery Charges   =       50/-</p>
+                                              <p>Total Cost         =       {{cost}}/-</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-primary btn-center" data-dismiss="modal" >Close</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
                                     
                                 </div>
                                 

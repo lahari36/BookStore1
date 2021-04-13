@@ -11,13 +11,14 @@ import { NotifierService } from 'src/app/notifier.service';
 })
 export class HomeComponent implements OnInit {
   booksArray=[];
-  
+  username=localStorage.getItem("username")
   search:string;
   author=new Array();
   newreleases=new Array();
   category=new Array();
   
   bookObj:any;
+  //inject services
   constructor(private bs:BookService,private router:Router,private notifierService:NotifierService) { }
   
   ngOnInit(): void {
@@ -44,9 +45,10 @@ export class HomeComponent implements OnInit {
       }
     )
   }
+  //button actions
   onView(i){
     this.bookObj=this.booksArray[i];
-    localStorage.setItem("booktitle",this.bookObj.booktitle);
+    localStorage.setItem("bookid",this.bookObj.bookid);
     this.router.navigateByUrl("/bookview")
   }
   onClick(j){
@@ -54,9 +56,19 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl("/category")
   }
   onCart(){
-    this.router.navigateByUrl("/login")
+    if(this.username!=null){
+      this.router.navigateByUrl("/userdashboard")
+    }
+    else{
+      this.router.navigateByUrl("/login")
+    }
   }
   onWish(){
-    this.router.navigateByUrl("/login")
+    if(this.username!=null){
+      this.router.navigateByUrl("/userdashboard")
+    }
+    else{
+      this.router.navigateByUrl("/login")
+    }
   }
 }

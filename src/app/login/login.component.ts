@@ -10,22 +10,24 @@ import { NotifierService } from '../notifier.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  username=localStorage.getItem("username");
+  //inject services
   constructor(private bs:BookService,private router:Router,private notifierService:NotifierService) { }
 
   ngOnInit(): void {
     
   }
   onSubmit(formRef){
+    //if admin is logged in
     let obj=formRef.value;
-    if(obj.username=="admin"){
+    if(obj.userid=="admin"){
       //console.log(obj)
       this.bs.loginAdmin(obj).subscribe(
         res=>{
           if(res.message=="success"){
             //store token and username in local storage
             localStorage.setItem("token",res.signedToken)
-            localStorage.setItem("username",res.username)
+            localStorage.setItem("userid",res.userid)
   
             //navigate to userdashboard
             this.router.navigateByUrl("/admin/addbook")
@@ -42,13 +44,14 @@ export class LoginComponent implements OnInit {
         }
       )
     }
+        //if user logged in
     else{
       this.bs.loginUser(obj).subscribe(
         res=>{
           if(res.message=="success"){
             //store username
             localStorage.setItem("token",res.signedToken)
-            localStorage.setItem("username",res.username)
+            localStorage.setItem("userid",res.userid)
   
             this.router.navigateByUrl("/userdashboard");
   

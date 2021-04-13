@@ -1,27 +1,41 @@
-<div class="icon" style="display: inline;float: right;padding-right: 10px;">
-    <img src="https://i.postimg.cc/7Lgq94SM/usericon.jpg" style="width: 60px; height: 60px;border-radius: 50%;display: inline;float: left;">
-    <div class="dropdown">
-        <button class="dropbtn">Admin</button>
-        <div class="dropdown-content">
-          <a (click)="onLogout()">Logout</a>
-          <a routerLink="/admin/addbook">Back</a>
-          
+
+
+
+
+<div class="container" >
+    <div class="row">
+        <div class="col-sm-10">
+          <h1 style="text-align: center;color: white;text-transform: uppercase;padding-top: 10px;">Books added</h1>
         </div>
+        <div class="col-sm-2">
+          <div class="icon" style="display: inline;float: right;padding-right: 5px;">
+            <img src="https://i.postimg.cc/7Lgq94SM/usericon.jpg" style="width: 60px; height: 60px;border-radius: 50%;display: inline;float: left;">
+              <div class="dropdown">
+                  <button class="dropbtn">Admin</button>
+                  <div class="dropdown-content">
+                    <a (click)="onLogout()" style="font-size: 15px;">Logout</a>
+                    <a routerLink="/admin/addbook" style="font-size: 15px;">Back</a>
+                    
+                  </div>
+                </div>
+          </div>
       </div>
-</div>
+      </div>
+        
 
-
-<div class="container mt-5">
-    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4">
-        <div *ngFor="let i=index,let book of booksArray | paginate:{ itemsPerPage:8,currentPage:p}">
+    <div class="row mt-5 row-cols-1 row-cols-md-3 row-cols-lg-4">
+        <!--cards-->
+        <div *ngFor="let i=index,let book of booksArray ">
             <div class="col">
                 <div class="card border-success mb-3" style=" width: 240px; height: 420px">
+                    <!--card image-->
                     <img [src]=book.userImgLink class="card-img-top mx-auto " style="width: 100%; height: 190px;padding: 5px;">
                     <div class="card-body">
                         <h6 class="card-text">{{book.category}}</h6>
                         <p class="card-text" style="font-size: 15px;"><b>{{book.author}}</b></p>
                         <h6 class="card-text">{{book.publisher}}</h6>
                         <h6 class="card-text">{{book.price | currency:"INR"}}</h6>
+                        <!--buttons-->
                         <div style="display: inline;float: left;padding-right: 10px;">
                             <button class="btn btn-danger" (click)="onDelete(i)">Delete</button>
                         </div>
@@ -37,5 +51,5 @@
         </div>
         
     </div>
-    <pagination-controls (pageChange)="p=$event" style="background-color: white;"></pagination-controls>
+    
 </div>

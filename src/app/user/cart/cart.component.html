@@ -1,9 +1,27 @@
 
 <div class="container">
-    <div class="row" >
+    <div class="row">
+      <div class="col-sm-10">
+        <h1 style="text-align: center;color: white;text-transform: uppercase;padding-top: 30px;">Cart of {{username}}</h1>
+      </div>
+      <div class="col-sm-2">
+        <div class="icon" style="display: inline;float: right;padding-right: 5px;">
+            <img src="https://i.postimg.cc/7Lgq94SM/usericon.jpg" style="width: 100px; padding-left: 50px;height: 60px;display: inline;float: left;">
+            <div class="dropdown">
+                <button class="dropbtn">Welcome {{username}}</button>
+                <div class="dropdown-content">
+                  <a (click)="onLogout()" style="font-size: 15px;">Logout</a>
+                  <a routerLink="/userdashboard" style="font-size: 15px;">Back</a>
+                  
+                </div>
+              </div>
+        </div>
+    </div>
+    </div>
+    <div class="row mt-2" >
         
-        <div class="col-sm-10" >
-            <h1 style="text-align: center;color: white;">Books In Cart</h1>
+        <div class="col-sm-12" >
+            
             <h4 style="color: white;">Total Cost = {{amount | currency:"INR"}}</h4>
             <div class="card mt-3 mb-3" style="width: 100%;" *ngFor="let b of cartArray,let i=index"  >
                 <div class="row no-gutters">
@@ -12,10 +30,13 @@
                     </div>
                     <div class="col-sm-7">
                         <div class="card-body">
-                            <p class="card-text"><b>Title:</b>{{b.booktitle}}</p>
-                            <p class="card-text"><b>Author:</b>{{b.author}}</p>
-                            <p class="card-text"><b>Publisher:</b>{{b.publisher}}</p>
-                            <p class="card-text"><b>Price:</b>{{b.price | currency:"INR"}}</p>
+                            <p class="card-text"><b>Title:</b>  {{b.booktitle}}</p>
+                            <p class="card-text"><b>Author:</b>  {{b.author}}</p>
+                            <p class="card-text"><b>Publisher:</b>  {{b.publisher}}</p>
+                            <p class="card-text" *ngIf="b.status=='available'"><b>Price:</b>  {{b.price | currency:"INR"}}</p>
+                            <p class="card-text" *ngIf="b.status=='unavailable'"><b>Price:</b>  <strike>{{b.price | currency:"INR"}}</strike></p>
+                            <p class="card-text" *ngIf="b.status=='available'" style="color: green;"><b style="color: black;">Status:</b>  {{b.status}}</p>
+                            <p class="card-text text-danger" *ngIf="b.status=='unavailable'" ><b style="color: black;">Status:</b>  {{b.status}}</p>
                             <p><b>Rating:</b><ngb-rating [max]="5" style="color: rgb(231, 136, 27);" [(rate)]=b.rating [readonly]="true"></ngb-rating></p>
                             <div class="content" style="display: inline;float: left;">
                                 <button class="btn btn-primary" id="button1" type="button"(click)="decrement(b)"><i class="fa fa-minus" aria-hidden="true"></i></button>
@@ -28,27 +49,34 @@
                                 <button class="btn btn-danger" (click)="onRemove(i)">Remove</button>
                             </div>
                             <div style="padding-left: 10px;display: inline;float: left;">
-                                <button class="btn btn-primary" (click)="onBuy(i)">Buy</button>
+                                <button class="btn btn-primary" (click)="onBuy(i)"  data-toggle="modal" data-target="#myModal" *ngIf="b.status=='available'">Buy</button>
+                                <button class="btn btn-primary disabled"  *ngIf="b.status=='unavailable'" >Buy</button>
                             </div>
-                           
+                           <!-- Modal -->
+                           <div class="modal fade" id="myModal" role="dialog" *ngIf="b.status=='available'">
+                            <div class="modal-dialog modal-sm">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                 
+                                  <h4 class="modal-title">Price Details</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <p>Book cost          =       {{bookcost}}/-</p>
+                                  <p>Delivery Charges   =       50/-</p>
+                                  <p>Total Cost         =       {{cost}}/-</p>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-primary btn-center" data-dismiss="modal" (click)="onClose()">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                     </div>
                 </div>
             </div>
             
         </div>
-        <div class="col-sm-2">
-            <div class="icon" style="display: inline;float: right;padding-right: 5px;">
-                <img src="https://i.postimg.cc/7Lgq94SM/usericon.jpg" style="width: 100px; padding-left: 50px;height: 60px;display: inline;float: left;">
-                <div class="dropdown">
-                    <button class="dropbtn">Welcome {{username}}</button>
-                    <div class="dropdown-content">
-                      <a (click)="onLogout()" style="font-size: 15px;">Logout</a>
-                      <a routerLink="/userdashboard" style="font-size: 15px;">Back</a>
-                      
-                    </div>
-                  </div>
-            </div>
-        </div>
+        
     </div>
 </div>

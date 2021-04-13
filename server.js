@@ -3,8 +3,10 @@ const exp=require("express")
 const app=exp();
 
 
-const mc=require("mongodb")
+const mc=require("mongodb").MongoClient;
 
+//import .env
+require("dotenv").config();
 const path=require("path")
 
 const errorHandler=require("express-async-handler")
@@ -29,7 +31,7 @@ app.use("/wishlist",wishlistApiObj)
 app.use("/order",orderApiObj)
 
 //databaseconnectivity
-const dburl="mongodb+srv://CDB37:CDB37@mongodb.lurqj.mongodb.net/MyAppDatabase?retryWrites=true&w=majority";
+const dburl=process.env.dburl;
 
 mc.connect(dburl,{useNewUrlParser:true,useUnifiedTopology:true})
 .then(client=>{
@@ -66,5 +68,5 @@ app.use((err,req,res,next)=>{
 
 
 //assign port number
-const port=3000;
+const port=process.env.PORT||8080;
 app.listen(port,()=>console.log(`webserver on port ${port}`)) 

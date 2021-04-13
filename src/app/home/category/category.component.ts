@@ -8,9 +8,10 @@ import { BookService } from 'src/app/book.service';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  
+ 
   categoryArray=[];
   bookObj:any;
+  //inject services
   constructor(private bs:BookService,private router:Router) { }
 
   ngOnInit(): void {
@@ -26,6 +27,7 @@ export class CategoryComponent implements OnInit {
       }
     )
   }
+  //button actions
   onView(i){
     this.bookObj=this.categoryArray[i];
     localStorage.setItem("booktitle",this.bookObj.booktitle);

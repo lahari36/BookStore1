@@ -1,29 +1,37 @@
-<h1 style="color: white; text-align:center;"><i class="fas fa-users"></i>  Users Information</h1>
-<div class="icon" style="display: inline;float: right;padding-right: 10px;">
-    <img src="https://i.postimg.cc/7Lgq94SM/usericon.jpg" style="width: 60px; height: 60px;border-radius: 50%;display: inline;float: left;">
-    <div class="dropdown">
-        <button class="dropbtn">Admin</button>
-        <div class="dropdown-content">
-          <a (click)="onLogout()">Logout</a>
-          <a routerLink="/admin/addbook">Back</a>
-          
-        </div>
-      </div>
-</div>
+
 <div class="container" style="height: 700px;">
     <div class="row">
+        <div class="col-sm-10">
+          <h3 style="text-align: center;color: white;text-transform: uppercase;padding-top: 10px;"><i class="fas fa-users"></i>  Users Information</h3>
+        </div>
+        <div class="col-sm-2">
+          <div class="icon" style="display: inline;float: right;padding-right: 5px;">
+            <img src="https://i.postimg.cc/7Lgq94SM/usericon.jpg" style="width: 60px; height: 60px;border-radius: 50%;display: inline;float: left;">
+              <div class="dropdown">
+                  <button class="dropbtn">Admin</button>
+                  <div class="dropdown-content">
+                    <a (click)="onLogout()" style="font-size: 15px;">Logout</a>
+                    <a routerLink="/admin/addbook" style="font-size: 15px;">Back</a>
+                    
+                  </div>
+                </div>
+          </div>
+      </div>
+      </div>
+      
+    <div class="row mt-2">
         <div class="col-sm-2 col-md-2"></div>
         <div class="col-sm-8 col-md-8" style="overflow-x:auto;">
             <table class="table table-boarder text-center mt-5" style="background-color: white">
                 <thead style="background-color: rgb(142, 240, 138);">
-                    <th>Username</th>
+                    <th>Name</th>
                     <th>Contact Number</th>
                     <th>Email</th>
                     <th>Address</th>
                     <th>Delete</th>
                 </thead>
                 <tr *ngFor="let user of userArray,let i=index">
-                    <td>{{user.username}}</td>
+                    <td>{{user.name}}</td>
                     <td>{{user.phoneno}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.address}}</td>

@@ -8,10 +8,10 @@
             <form class="row g-3  p-3" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                
                     <div class="col-sm-6">
-                        <label class="form-label"><i class="fas fa-user"></i>Username</label>
-                        <input type="text" name="username" id="username" class="form-control" placeholder="username" formControlName="username">
-                        <div class="text-danger" *ngIf="registerForm.get('username').hasError('required') && registerForm.get('username').touched">
-                            Username is required.
+                        <label class="form-label"><i class="fas fa-user"></i>UserId</label>
+                        <input type="text" name="userid" id="userid" class="form-control" placeholder="userid" formControlName="userid">
+                        <div class="text-danger" *ngIf="registerForm.get('userid').hasError('required') && registerForm.get('userid').touched">
+                            UserId is required.
                         </div>
                     </div>
                     <div class="col-sm-6">

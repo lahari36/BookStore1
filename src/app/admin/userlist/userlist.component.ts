@@ -28,8 +28,8 @@ export class UserlistComponent implements OnInit {
   }
   onDelete(i){
     this.obj=this.userArray[i];
-    let username=this.obj.username;
-    this.bs.deleteUser(username).subscribe(
+    let userid=this.obj.userid;
+    this.bs.deleteUser(userid).subscribe(
       res=>{
         if(res.message=="user deleted"){
           //alert("User deleted successfully")

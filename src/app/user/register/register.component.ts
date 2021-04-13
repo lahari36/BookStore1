@@ -10,13 +10,19 @@ import { NotifierService } from 'src/app/notifier.service';
 })
 export class RegisterComponent implements OnInit {
   userObj:any;
+  userArray=[];
+  userid:number;
+  length:number;
   constructor(private bs:BookService,private router:Router,private notifierService:NotifierService) { }
   onLogin(){
     this.router.navigateByUrl("/login")
   }
+
   onSubmit(formRef){
     if(formRef.valid){
       this.userObj=formRef.value;
+      this.userObj.userid=this.userid;
+      console.log(this.userObj)
       this.bs.createUser(this.userObj).subscribe(
         res=>{
           if(res.message=="user existed"){
@@ -30,7 +36,7 @@ export class RegisterComponent implements OnInit {
           else{
             //alert("user created successfully")
             this.notifierService.showNotification('user created successfully','Thank You')
-            this.router.navigateByUrl("/login")
+            //this.router.navigateByUrl("/login")
           }
           
         },
@@ -45,6 +51,18 @@ export class RegisterComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.bs.getUsers().subscribe(
+      res=>{
+        this.userArray=res.message;
+        this.length=this.userArray.length;
+        if(this.length!==0){
+          this.userid=(+this.userArray[this.length-1].userid)+1;
+        }
+        else{
+          this.userid=3036;
+        }
+      },
+    )
   }
 
 }

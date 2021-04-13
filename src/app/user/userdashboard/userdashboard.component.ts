@@ -20,7 +20,10 @@ export class UserdashboardComponent implements OnInit {
   wishlistcount:number;
   ordercount:number;
   cartcount:number;
-  username=localStorage.getItem("username");
+  bookcost:number;
+  cost:number;
+  username:string;
+  userid=localStorage.getItem("userid");
   constructor(private router:Router,private bs:BookService,private notifierService:NotifierService) { }
 
   ngOnInit(): void {
@@ -38,13 +41,15 @@ export class UserdashboardComponent implements OnInit {
     this.wishlistStatus();
     this.orderStatus();
     this.cartStatus();
+    this.getUser();
   }
   
   onWishlist(i){
-    let username=localStorage.getItem("username");
-    if(username!=null){
+    let userid=localStorage.getItem("userid");
+    if(userid!=null){
       this.wishlistObj={
-        username:username,
+        userid:userid,
+        bookid:this.booksArray[i].bookid,
         booktitle:this.booksArray[i].booktitle,
         author:this.booksArray[i].author,
         publisher:this.booksArray[i].publisher,
@@ -78,9 +83,10 @@ export class UserdashboardComponent implements OnInit {
     )
   }
   onCart(i){
-    if(this.username!=null){
+    if(this.userid!=null){
       this.cartObj={
-        username:this.username,
+        userid:this.userid,
+        bookid:this.booksArray[i].bookid,
         booktitle:this.booksArray[i].booktitle,
         author:this.booksArray[i].author,
         publisher:this.booksArray[i].publisher,
@@ -114,9 +120,10 @@ export class UserdashboardComponent implements OnInit {
     )
   }
   onBuy(i){
-    if(this.username!=null){
+    if(this.userid!=null){
       this.orderObj={
-        username:this.username,
+        userid:this.userid,
+        bookid:this.booksArray[i].bookid,
         booktitle:this.booksArray[i].booktitle,
         author:this.booksArray[i].author,
         publisher:this.booksArray[i].publisher,
@@ -130,6 +137,8 @@ export class UserdashboardComponent implements OnInit {
       }
     }
     //console.log(this.orderObj)
+    this.cost=this.orderObj.price+50;
+    this.bookcost=this.orderObj.price;
     this.bs.createOrder(this.orderObj).subscribe(
       res=>{
         if(res.message=="book purchased successfully"){
@@ -150,9 +159,9 @@ export class UserdashboardComponent implements OnInit {
     this.router.navigateByUrl("/home")
   }
   wishlistStatus(){
-    this.bs.getWishlist(this.username).subscribe(
+    this.bs.getWishlist(this.userid).subscribe(
       res=>{
-        this.wishlistArray=res.message;
+        this.wishlistArray=res.wishlist;
         //console.log(this.wishlistArray)
         this.wishlistcount=this.wishlistArray.length;
         //console.log(this.wishlistcount)
@@ -165,7 +174,7 @@ export class UserdashboardComponent implements OnInit {
     )
   }
   orderStatus(){
-    this.bs.getOrder(this.username).subscribe(
+    this.bs.getOrder(this.userid).subscribe(
       res=>{
         this.orderArray=res.message;
         //console.log(this.orderArray)
@@ -179,14 +188,26 @@ export class UserdashboardComponent implements OnInit {
     )
   }
   cartStatus(){
-    this.bs.getCart(this.username).subscribe(
+    this.bs.getCart(this.userid).subscribe(
       res=>{
-        this.cartArray=res.message;
+        this.cartArray=res.cart;
         //console.log(this.cartArray)
         this.cartcount=this.cartArray.length;
       },
       err=>{
         this.notifierService.showNotification('something went wrong in getting cart data','Dismiss')
+        console.log(err)
+      }
+    )
+  }
+  getUser(){
+    this.bs.getUser(this.userid).subscribe(
+      res=>{
+        this.username=res.user.name;
+        //console.log(this.username)
+      },
+      err=>{
+        this.notifierService.showNotification('Something went wrong in getting user','Dismiss')
         console.log(err)
       }
     )

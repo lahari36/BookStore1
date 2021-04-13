@@ -2,11 +2,29 @@
 
 
 <div class="container mb-5">
-    <div class="row" >
-        
-        <div class="col-sm-10" >
-            <h1 style="text-align: center;color: white;">Ordered Books</h1>
-            <div class="card mt-3" style="width: 100%;" *ngFor="let v of orderArray,let i=index"  >
+    <div class="row">
+        <div class="col-sm-10">
+          <h1 style="text-align: center;color: white;text-transform: uppercase;padding-top: 30px;">orders of {{username}}</h1>
+        </div>
+        <div class="col-sm-2">
+          <div class="icon" style="display: inline;float: right;padding-right: 5px;">
+              <img src="https://i.postimg.cc/7Lgq94SM/usericon.jpg" style="width: 100px; padding-left: 50px;height: 60px;display: inline;float: left;">
+              <div class="dropdown">
+                  <button class="dropbtn">Welcome {{username}}</button>
+                  <div class="dropdown-content">
+                    <a (click)="onLogout()" style="font-size: 15px;">Logout</a>
+                    <a routerLink="/userdashboard" style="font-size: 15px;">Back</a>
+                    
+                  </div>
+                </div>
+          </div>
+      </div>
+      </div>
+      <div class="row mt-2" >
+          
+          <div class="col-sm-12" >
+           
+            <div class="card mt-3 mb-3" style="width: 100%;" *ngFor="let v of orderArray,let i=index"  >
                 <div class="row no-gutters">
                     <div class="col-sm-5">
                         <img class="card-img" [src]=v.ImgLink height="400px" width="100%">
@@ -31,18 +49,6 @@
             </div>
             
         </div>
-        <div class="col-sm-2">
-            <div class="icon" style="display: inline;float: right;padding-right: 5px;">
-                <img src="https://i.postimg.cc/7Lgq94SM/usericon.jpg" style="width: 100px; padding-left: 50px;height: 60px;display: inline;float: left;">
-                <div class="dropdown">
-                    <button class="dropbtn">Welcome {{username}}</button>
-                    <div class="dropdown-content">
-                      <a (click)="onLogout()" style="font-size: 15px;">Logout</a>
-                      <a routerLink="/userdashboard" style="font-size: 15px;">Back</a>
-                      
-                    </div>
-                  </div>
-            </div>
-        </div>
+        
     </div>
 </div>

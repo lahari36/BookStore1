@@ -11,47 +11,31 @@ import { NotifierService } from 'src/app/notifier.service';
   styleUrls: ['./wishlist.component.css']
 })
 export class WishlistComponent implements OnInit {
-  username=localStorage.getItem("username");
+  userid=localStorage.getItem("userid");
   wishlistArray=[];
-
-  list=[];
+  username:string;
+  
   
   booksArray=[];
   obj;
-  status="unavailable"
+  status=false;
   price=0;
   constructor(private bs:BookService,private router:Router,private notifierService:NotifierService) { }
 
   ngOnInit(): void {
-    this.bs.getBooks().subscribe(
+    
+   this.getWishlist();
+    this.checkStatus();
+    this.getUser();
+  }
+  getWishlist(){
+    this.bs.getWishlist(this.userid).subscribe(
       res=>{
-        this.booksArray=res.message;
-        //console.log(this.booksArray)
-      },
-      err=>{
-        //alert("something went wrong in getting books data");
-        this.notifierService.showNotification('something went wrong in getting books data','Dismiss')
-        console.log(err)
-      }
-    )
-    this.bs.getWishlist(this.username).subscribe(
-      res=>{
-        this.wishlistArray=res.message;
+        this.wishlistArray=res.wishlist;
+        this.booksArray=res.books
         //console.log(this.wishlistArray)
-        for(let i=0;i<this.wishlistArray.length;i++){
-          this.price=this.price+this.wishlistArray[i].price;
-          for(let j=0;j<this.booksArray.length;j++){
-            if(this.wishlistArray[i].booktitle==this.booksArray[j].booktitle){
-            
-             this.list.push(i)
-            
-            }
-            else{
-              
-            }
-          }
-        }
-        //console.log(this.list)
+        //console.log(this.booksArray)
+        this.checkStatus();
         
         
       },
@@ -61,7 +45,6 @@ export class WishlistComponent implements OnInit {
         console.log(err)
       }
     )
-    
   }
    onLogout(){
     localStorage.clear();
@@ -70,31 +53,36 @@ export class WishlistComponent implements OnInit {
   onCart(i){
     let cartObj=this.wishlistArray[i];
     //console.log(cartObj)
-    this.bs.createCart(cartObj).subscribe(
-      res=>{
-        if(res.message=="book added to cart successfully"){
-          //alert("book added to wishlist successfully")
-          this.notifierService.showNotification('book added to cart successfully','Dismiss')
-         
+    if(cartObj.status=="available"){
+      this.bs.createCart(cartObj).subscribe(
+        res=>{
+          if(res.message=="book added to cart successfully"){
+            //alert("book added to wishlist successfully")
+            this.notifierService.showNotification('book added to cart successfully','Dismiss')
+           
+          }
+          else if(res.message=="book already existed in cart"){
+            //alert("book already existed in wishlist")
+            this.notifierService.showNotification('book already existed in cart','Dismiss')
+          }
+        },
+        err=>{
+          //alert("something went wrong in creating wishlist");
+          this.notifierService.showNotification('something went wrong in creating cart','Dismiss')
+          console.log(err)
         }
-        else if(res.message=="book already existed in cart"){
-          //alert("book already existed in wishlist")
-          this.notifierService.showNotification('book already existed in cart','Dismiss')
-        }
-      },
-      err=>{
-        //alert("something went wrong in creating wishlist");
-        this.notifierService.showNotification('something went wrong in creating cart','Dismiss')
-        console.log(err)
-      }
-    )
+      )
+    }
+    else{
+      this.notifierService.showNotification('This product is not available right now','Dismiss')
+    }
   }
   
   onDelete(i){
     this.obj=this.wishlistArray[i];
-    let booktitle=this.obj.booktitle;
+    let bookid=this.obj.bookid;
     //console.log(booktitle)
-   this.bs.deleteWishlist(booktitle).subscribe(
+   this.bs.deleteWishlist(bookid).subscribe(
      res=>{
        if(res.message="book deleted successfully"){
          //alert("book deleted successfully")
@@ -111,15 +99,39 @@ export class WishlistComponent implements OnInit {
   }
   checkStatus(){
     for(let i=0;i<this.wishlistArray.length;i++){
+      
       for(let j=0;j<this.booksArray.length;j++){
-        if(this.wishlistArray[i].booktitle==this.booksArray[j].booktitle){
-          console.log("true")
+        if(this.wishlistArray[i].bookid==this.booksArray[j].bookid){
+          this.status=true
+          this.wishlistArray[i].status="available";
+          //console.log(this.wishlistArray[i].status)
+          break;
+        
         }
-        else{
-          console.log("false")
-        }
+       
+      }
+      if(this.wishlistArray[i].status!="available"){
+        this.wishlistArray[i].status="unavailable"
+        
+      }
+    }
+    //console.log(this.wishlistArray)
+    for(let v=0;v<this.wishlistArray.length;v++){
+      if(this.wishlistArray[v].status=="available"){
+        this.price=this.price+this.wishlistArray[v].price;
       }
     }
   }
-  
+  getUser(){
+    this.bs.getUser(this.userid).subscribe(
+      res=>{
+        this.username=res.user.name;
+        //console.log(this.username)
+      },
+      err=>{
+        this.notifierService.showNotification('Something went wrong in getting user','Dismiss')
+        console.log(err)
+      }
+    )
+  }
 }

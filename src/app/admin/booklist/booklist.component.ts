@@ -20,11 +20,7 @@ export class BooklistComponent implements OnInit {
       res=>{
         this.booksArray=res.message;
         //console.log(this.booksArray)
-        for(let i=0;i<this.booksArray.length;i++){
-          this.ans.push(this.booksArray[i].category)
-        }
-        //this.ans=this.ans.filter((element,i)=>i === this.ans.indexOf(element))
-        //console.log(this.ans)
+        
       },
       err=>{
         //alert("something went wrong in getting books");
@@ -39,28 +35,27 @@ export class BooklistComponent implements OnInit {
     localStorage.clear();
     this.router.navigateByUrl("/home")
   }
+  //Edit book
   onEdit(i){
-    let booktitle=this.booksArray[i].booktitle;
-    localStorage.setItem("booktitle",booktitle);
+    let bookid=this.booksArray[i].bookid;
+    localStorage.setItem("bookid",bookid);
     this.router.navigateByUrl("/admin/bookedit")
   }
-  onDelete(i){
-    this.obj=this.booksArray[i];
-    let booktitle=this.obj.booktitle;
-    //console.log(booktitle);
-    this.bs.deleteBook(booktitle).subscribe(
-      res=>{
-        if(res.message=="book deleted"){
-          //alert("book deleted successfully")
-          this.notifierService.showNotification('book deleted successfully','Thank You')
-          window.location.reload();
-        }
-      },
-      err=>{
-        //alert("something went wrong in book deletion")
-        this.notifierService.showNotification('something went wrong in book deletion','Dismiss')
-        console.log(err)
-      }
-    )
-  }
+  //Delete book
+ onDelete(i){
+   let bookid=this.booksArray[i].bookid
+   //console.log(booktitle)
+   this.bs.deleteBook(bookid).subscribe(
+     res=>{
+       if(res.message=="book deleted"){
+         this.notifierService.showNotification('Book deled successfully','Thank You');
+         window.location.reload();
+       }
+     },
+     err=>{
+       this.notifierService.showNotification('something went wrong in deleting book..','Dismiss')
+       console.log(err)
+     }
+   )
+ }
 }

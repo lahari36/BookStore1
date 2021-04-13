@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BookService } from 'src/app/book.service';
+import { NotifierService } from 'src/app/notifier.service';
 
 @Component({
   selector: 'app-bookview',
@@ -8,25 +9,32 @@ import { BookService } from 'src/app/book.service';
   styleUrls: ['./bookview.component.css']
 })
 export class BookviewComponent implements OnInit {
-  bookObj:any;
-  constructor(private bs:BookService,private router:Router) { }
+  bookObj;
+  username=localStorage.getItem("username");
+  //inject services
+  constructor(private bs:BookService,private router:Router,private notifierService:NotifierService) { }
 
-  ngOnInit(): void {let booktitle=localStorage.getItem("booktitle")
-  console.log(booktitle)
-  this.bs.getBook(booktitle).subscribe(
+  ngOnInit(): void {
+    
+  let bookid=localStorage.getItem("bookid");
+  this.bs.getBook(bookid).subscribe(
     res=>{
       this.bookObj=res;
-      //console.log(this.bookObj)
     },
     err=>{
-      alert("something went wrong in book retrieval");
+      this.notifierService.showNotification('Something went wrong in getting book','Dismiss')
       console.log(err)
     }
   )
-  
 }
 onAdd(){
-  this.router.navigateByUrl("/login")
+  if(this.username!=null){
+    this.router.navigateByUrl("/userdashboard")
+  }
+  else{
+    this.router.navigateByUrl("/login")
+  }
+  
 }
 
 }

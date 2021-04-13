@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,14 +14,14 @@ export class BookService {
   getBooks():Observable<any>{
     return this.hc.get("/books/getbooks");
   }
-  getBook(booktitle){
-    return this.hc.get("/books/getbook/"+booktitle)
+  getBook(bookid){
+    return this.hc.get("/books/getbook/"+bookid)
   }
   getBooks1(category):Observable<any>{
     return this.hc.get("/books/getbooks1/"+category)
   }
-  deleteBook(booktitle):Observable<any>{
-    return this.hc.delete("/books/deletebook/"+booktitle)
+  deleteBook(bookid):Observable<any>{
+    return this.hc.delete("/books/deletebook/"+bookid)
   }
   editBook(bookObj):Observable<any>{
     return this.hc.put("/books/editbook",bookObj);
@@ -34,8 +35,11 @@ export class BookService {
   getUsers():Observable<any>{
     return this.hc.get("/user/getusers");
   }
-  deleteUser(username):Observable<any>{
-    return this.hc.delete("/user/deleteuser/"+username);
+  getUser(userid):Observable<any>{
+    return this.hc.get("/user/getuser/"+userid);
+  }
+  deleteUser(userid):Observable<any>{
+    return this.hc.delete("/user/deleteuser/"+userid);
   }
   createAdmin(adminObj):Observable<any>{
     return this.hc.post("/admin/createadmin",adminObj);
@@ -46,28 +50,28 @@ export class BookService {
   createWishlist(wishlistObj):Observable<any>{
     return this.hc.post("/wishlist/createwishlist",wishlistObj);
   }
-  getWishlist(username):Observable<any>{
-    return this.hc.get("/wishlist/getwishlist/"+username);
+  getWishlist(userid):Observable<any>{
+    return this.hc.get("/wishlist/getwishlist/"+userid);
   }
- deleteWishlist(booktitle):Observable<any>{
-   return this.hc.delete("/wishlist/deletebook/"+booktitle);
+ deleteWishlist(bookid):Observable<any>{
+   return this.hc.delete("/wishlist/deletebook/"+bookid);
  }
  createOrder(orderObj):Observable<any>{
    return this.hc.post("/order/createorder",orderObj)
  }
- getOrder(username):Observable<any>{
-   return this.hc.get("/order/getorder/"+username);
+ getOrder(userid):Observable<any>{
+   return this.hc.get("/order/getorder/"+userid);
  }
- deleteOrder(booktitle):Observable<any>{
-   return this.hc.delete("/order/deleteorder/"+booktitle)
+ deleteOrder(bookid):Observable<any>{
+   return this.hc.delete("/order/deleteorder/"+bookid)
  }
  createCart(cartObj):Observable<any>{
    return this.hc.post("/cart/createcart",cartObj);
  }
- getCart(username):Observable<any>{
-   return this.hc.get("/cart/getcart/"+username);
+ getCart(userid):Observable<any>{
+   return this.hc.get("/cart/getcart/"+userid);
  }
- deleteCart(booktitle):Observable<any>{
-   return this.hc.delete("/cart/deletecart/"+booktitle)
+ deleteCart(bookid):Observable<any>{
+   return this.hc.delete("/cart/deletecart/"+bookid)
  }
 }

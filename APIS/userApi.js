@@ -1,6 +1,7 @@
 const exp=require("express");
 const userApiObj=exp.Router();
 const errorHandler=require("express-async-handler")
+const verifyToken=require("./middlewares/verifyToken")
 
 const bcryptjs=require("bcryptjs")
 
@@ -16,7 +17,7 @@ userApiObj.post("/register",errorHandler(async (req,res,next)=>{
 
     let user=req.body;
 
-    let userObj=await userCollectionObj.findOne({username:user.username});
+    let userObj=await userCollectionObj.findOne({userid:user.userid});
     if(userObj==null){
         
         if(user.password==user.confirmpassword){
@@ -44,11 +45,11 @@ userApiObj.post("/login",errorHandler(async (req,res,next)=>{
     let userCreditObj=req.body;
 
     //verify username
-    let user=await userCollectionObj.findOne({username:userCreditObj.username})
+    let user=await userCollectionObj.findOne({userid:+userCreditObj.userid})
 
     //if user not existed
     if(user==null){
-        res.send({message:"Invalid username"})
+        res.send({message:"Invalid userid"})
     }
     else{
 
@@ -59,9 +60,9 @@ userApiObj.post("/login",errorHandler(async (req,res,next)=>{
         if(status==true){
 
             //create json token
-            let token=await jwt.sign({username:user.username},"abcd",{expiresIn:100})
+            let token=await jwt.sign({userid:user.userid},"abcd",{expiresIn:100})
             //send token
-            res.send({message:"success",signedToken:token,username:user.username})
+            res.send({message:"success",signedToken:token,userid:user.userid})
         }
         else{
             res.send({message:"Invalid password"})
@@ -76,12 +77,20 @@ userApiObj.get("/getusers",errorHandler(async(req,res,next)=>{
     let userArray=await userCollectionObj.find().toArray();
     res.send({message:userArray})
 }))
+//get user
+userApiObj.get("/getuser/:userid",verifyToken,errorHandler(async(req,res,next)=>{
+     //get usercollectionobject
+     let userCollectionObj=req.app.get("userCollectionObj")
+
+    let userObj=await userCollectionObj.findOne({userid:+req.params.userid})
+    res.send({user:userObj})
+}))
 //delete user
-userApiObj.delete("/deleteuser/:username",errorHandler(async(req,res,next)=>{
+userApiObj.delete("/deleteuser/:userid",verifyToken,errorHandler(async(req,res,next)=>{
     //get usercollectionobject
     let userCollectionObj=req.app.get("userCollectionObj")
 
-    let success=await userCollectionObj.removeOne({username:req.params.username})
+    let success=await userCollectionObj.removeOne({userid:req.params.userid})
     res.send({message:"user deleted"})    
 }))
 //export 

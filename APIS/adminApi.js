@@ -17,7 +17,7 @@ adminApiObj.post("/createadmin",errorHandler(async(req,res,next)=>{
 
     let admin=req.body;
 
-    let adminObj=await adminCollectionObj.findOne({username:admin.username});
+    let adminObj=await adminCollectionObj.findOne({userid:admin.userid});
     if(adminObj==null){
         let hashedpw=await bcryptjs.hash(admin.password,5);
         admin.password=hashedpw;
@@ -37,7 +37,7 @@ adminApiObj.post("/loginAdmin",errorHandler(async(req,res,next)=>{
      let adminCreditObj=req.body;
 
     //verify username
-    let admin=await adminCollectionObj.findOne({username:adminCreditObj.username})
+    let admin=await adminCollectionObj.findOne({userid:adminCreditObj.userid})
 
     //if admin not existed
     if(admin==null){
@@ -50,9 +50,9 @@ adminApiObj.post("/loginAdmin",errorHandler(async(req,res,next)=>{
         if(status==true){
 
             //create json token
-            let token=await jwt.sign({username:admin.username},"abcd",{expiresIn:100})
+            let token=await jwt.sign({userid:admin.userid},"abcd",{expiresIn:100})
             //send token
-            res.send({message:"success",signedToken:token,username:admin.username})
+            res.send({message:"success",signedToken:token,userid:admin.userid})
         }
         else{
             res.send({message:"Invalid password"})

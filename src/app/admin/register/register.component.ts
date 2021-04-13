@@ -15,12 +15,12 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm=new FormGroup({
-      username:new FormControl(null,Validators.required),
+      userid:new FormControl(null,Validators.required),
       name:new FormControl(null,Validators.required),
       email:new FormControl(null,[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
       phoneno:new FormControl(null,[Validators.required,Validators.minLength(10),Validators.maxLength(10)]),
       password:new FormControl(null,[Validators.required,Validators.pattern("^(?=.*?[0-9])(?=.*[A-Z]).*$"),Validators.minLength(6)])
-
+      
     })
   }
   getControl() {
@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
       this.bs.createAdmin(adminObj).subscribe(
         res=>{
           if(res.message=="admin existed"){
-            alert("username already existed choose another")
+            alert("userid already existed choose another")
           }
           else{
             alert("admin created successfully");
