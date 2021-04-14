@@ -19,12 +19,12 @@
                         <div class="dropdown-menu">
                           <ul *ngFor="let c of category,let j=index">
                             <li style="list-style: none; font-size: 15px;">
-                                <a class="dropdown-item" routerLink="/category" (click)="onClick(j)">{{c}}</a></li>
+                                <a class="dropdown-item"  data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show"  routerLink="/category" (click)="onClick(j)">{{c}}</a></li>
                         </ul>
                         </div>
                       </li> 
                       <li class="nav-item dropdown">
-                        <a style="font-weight: bold;"  class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><i class="fas fa-user"> </i>
+                        <a style="font-weight: bold;"  data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show"  class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><i class="fas fa-user"> </i>
                             Author
                         </a>
                         <div class="dropdown-menu" >
@@ -37,7 +37,7 @@
                         </div>
                       </li> 
                       <li class="nav-item dropdown">
-                        <a style="font-weight: bold;" class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><i class="fas fa-id-card"> </i>
+                        <a style="font-weight: bold;"  data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show"  class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><i class="fas fa-id-card"> </i>
                             New Releases
                         </a>
                         <div class="dropdown-menu" >
