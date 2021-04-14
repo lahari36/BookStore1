@@ -10,7 +10,7 @@ import { NotifierService } from 'src/app/notifier.service';
 })
 export class BooklistComponent implements OnInit {
   booksArray=[];
-  p:any;
+  
   obj:any;
   username=localStorage.getItem("username")
   constructor(private bs:BookService,private router:Router,private notifierService:NotifierService) { }

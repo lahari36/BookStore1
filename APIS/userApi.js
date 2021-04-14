@@ -60,7 +60,7 @@ userApiObj.post("/login",errorHandler(async (req,res,next)=>{
         if(status==true){
 
             //create json token
-            let token=await jwt.sign({userid:user.userid},"abcd",{expiresIn:100})
+            let token=await jwt.sign({userid:user.userid},"abcd",{expiresIn:10000})
             //send token
             res.send({message:"success",signedToken:token,userid:user.userid})
         }

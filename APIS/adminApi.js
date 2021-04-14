@@ -50,7 +50,7 @@ adminApiObj.post("/loginAdmin",errorHandler(async(req,res,next)=>{
         if(status==true){
 
             //create json token
-            let token=await jwt.sign({userid:admin.userid},"abcd",{expiresIn:100})
+            let token=await jwt.sign({userid:admin.userid},"abcd",{expiresIn:10000})
             //send token
             res.send({message:"success",signedToken:token,userid:admin.userid})
         }

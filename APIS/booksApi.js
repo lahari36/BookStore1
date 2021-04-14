@@ -35,16 +35,16 @@ var upload = multer({ storage: storage });
 booksApiObj.use(exp.json())
 
 //req handlers
-booksApiObj.post("/createbook",verifyToken,upload.single('photo'),errorHandler(async (req,res,next)=>{
+booksApiObj.post("/createbook",upload.single('photo'),errorHandler(async (req,res,next)=>{
 
     //get bookscoll obj
     let booksCollectionObj=req.app.get("booksCollectionObj");
 
     let booksObj=JSON.parse(req.body.booksObj);
     
-    //console.log("req body is",req.body);
+    //console.log("req body is",req.body.booksObj);
 
-    let book=await booksCollectionObj.findOne({bookid:booksObj.bookid});
+    let book=await booksCollectionObj.findOne({bookid:+booksObj.bookid});
     if(book==null){
 
         //for image

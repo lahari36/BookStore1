@@ -28,8 +28,22 @@ export class AddbookComponent implements OnInit {
     )
   }
   onSubmit(formRef){
-    let booksObj=formRef.value;
-    booksObj.bookid=this.length+1;
+    let Obj=formRef.value;
+    let booksObj={
+      bookid:this.length+1,
+      booktitle:Obj.booktitle,
+      author:Obj.author,
+      publisher:Obj.publisher,
+      publishedyear:Obj.publishedyear,
+      category:Obj.category,
+      price:Obj.price,
+      photo:Obj.photo,
+      rating:Obj.rating,
+      description:Obj.description
+
+    }
+   // booksObj.bookid=this.length+1;
+    //console.log(booksObj)
     let formData=new FormData(); 
     //adding image and other data to FormData object 
     formData.append('photo',this.file,this.file.name); 
