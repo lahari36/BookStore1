@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthorizationService } from './authorization.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 
@@ -22,6 +23,7 @@ import { AuthorizationService } from './authorization.service';
   declarations: [
     AppComponent,
     LoginComponent,
+    PageNotFoundComponent,
     
     
   ],

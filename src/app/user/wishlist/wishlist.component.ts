@@ -14,7 +14,7 @@ export class WishlistComponent implements OnInit {
   userid=localStorage.getItem("userid");
   wishlistArray=[];
   username:string;
-  
+  spin=false;
   
   booksArray=[];
   obj;
@@ -31,6 +31,7 @@ export class WishlistComponent implements OnInit {
   getWishlist(){
     this.bs.getWishlist(this.userid).subscribe(
       res=>{
+        this.spin=true;
         this.wishlistArray=res.wishlist;
         this.booksArray=res.books
         //console.log(this.wishlistArray)

@@ -11,6 +11,7 @@ import { NotifierService } from 'src/app/notifier.service';
 export class AddbookComponent implements OnInit {
   file:File; 
   length:number;
+  
   username=localStorage.getItem("username")
   incomingfile(event:any) {
     this.file= event.target.files[0]; 
@@ -53,6 +54,7 @@ export class AddbookComponent implements OnInit {
       res=>{
         if(res.message=="book created"){
           //alert("book created successfully")
+          
           this.notifierService.showNotification('book created successfully','Thank You')
         }
         if(res.message=="book already existed"){

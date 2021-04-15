@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   author=new Array();
   newreleases=new Array();
   category=new Array();
+  spin=false;
   
   bookObj:any;
   //inject services
@@ -24,6 +25,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.bs.getBooks().subscribe(
       res=>{
+        this.spin=true;
         this.booksArray=res.message;
         //console.log(this.booksArray)
         

@@ -11,13 +11,15 @@ import { NotifierService } from 'src/app/notifier.service';
 export class BooklistComponent implements OnInit {
   booksArray=[];
   
-  obj:any;
+  obj;
+  spin=false;
   username=localStorage.getItem("username")
   constructor(private bs:BookService,private router:Router,private notifierService:NotifierService) { }
   ans=new Array();
   ngOnInit(): void {
     this.bs.getBooks().subscribe(
       res=>{
+        this.spin=true;
         this.booksArray=res.message;
         //console.log(this.booksArray)
         

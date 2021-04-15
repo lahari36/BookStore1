@@ -11,6 +11,7 @@ import { NotifierService } from 'src/app/notifier.service';
 export class OrdersComponent implements OnInit {
   orderArray=[];
   username:string;
+  spin=false;
   userid=localStorage.getItem("userid")
   constructor(private bs:BookService,private router:Router,private notifierService:NotifierService) { }
 
@@ -18,6 +19,7 @@ export class OrdersComponent implements OnInit {
     let userid=localStorage.getItem("userid");
     this.bs.getOrder(userid).subscribe(
       res=>{
+        this.spin=true;
         this.orderArray=res.message;
         //console.log(this.orderArray)
       },

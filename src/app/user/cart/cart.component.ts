@@ -19,6 +19,7 @@ export class CartComponent implements OnInit {
   amount:number;
   cost:number;
   bookcost:number;
+  spin=false;
   constructor(private bs:BookService,private router:Router,private notifierService:NotifierService ) { }
 
   ngOnInit(): void {
@@ -32,6 +33,7 @@ export class CartComponent implements OnInit {
   getCart(){
     this.bs.getCart(this.userid).subscribe(
       res=>{
+        this.spin=true;
         this.cartArray=res.cart
         this.booksArray=res.books
         //console.log(this.cartArray)

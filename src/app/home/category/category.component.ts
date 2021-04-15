@@ -10,7 +10,8 @@ import { BookService } from 'src/app/book.service';
 export class CategoryComponent implements OnInit {
  
   categoryArray=[];
-  bookObj:any;
+  bookObj;
+  spin=false;
   //inject services
   constructor(private bs:BookService,private router:Router) { }
 
@@ -18,6 +19,7 @@ export class CategoryComponent implements OnInit {
     let category=localStorage.getItem("category")
     this.bs.getBooks1(category).subscribe(
       res=>{
+        this.spin=true;
         this.categoryArray=res.message;
         //console.log(this.categoryArray);
       },

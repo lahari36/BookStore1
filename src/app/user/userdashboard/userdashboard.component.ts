@@ -22,6 +22,7 @@ export class UserdashboardComponent implements OnInit {
   cartcount:number;
   bookcost:number;
   cost:number;
+  spin=false;
   username:string;
   userid=localStorage.getItem("userid");
   constructor(private router:Router,private bs:BookService,private notifierService:NotifierService) { }
@@ -29,6 +30,7 @@ export class UserdashboardComponent implements OnInit {
   ngOnInit(): void {
     this.bs.getBooks().subscribe(
       res=>{
+        this.spin=true;
         this.booksArray=res.message;
        
       },
@@ -67,6 +69,7 @@ export class UserdashboardComponent implements OnInit {
       res=>{
         if(res.message=="book added to wishlist successfully"){
           //alert("book added to wishlist successfully")
+          this.spin=true;
           this.notifierService.showNotification('book added to wishlist successfully','Dismiss')
           this.wishlistStatus();
         }
@@ -104,6 +107,7 @@ export class UserdashboardComponent implements OnInit {
       res=>{
         if(res.message=="book added to cart successfully"){
           //alert("book added to wishlist successfully")
+          this.spin=true;
           this.notifierService.showNotification('book added to cart successfully','Dismiss')
           this.cartStatus();
         }
@@ -143,6 +147,7 @@ export class UserdashboardComponent implements OnInit {
       res=>{
         if(res.message=="book purchased successfully"){
           //alert("Book purchased")
+          this.spin=true;
           this.notifierService.showNotification('Payment successfull','Thank You')
           this.orderStatus();
         }
